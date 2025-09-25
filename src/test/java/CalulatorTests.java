@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -118,12 +119,13 @@ public class CalulatorTests {
     }
 
     @Test
-    void calculateTotalTest(){
-
-        
-
-    
+     void calculateTotal_listaVaciaDevuelveCero() {
+        List<Double> importes = new ArrayList<>();
+        double resultado = calculator.calculateTotal(importes);
+        assertEquals(0.0, resultado, 0.0001);
     }
+    
+    
 
 
 }
