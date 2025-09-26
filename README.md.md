@@ -1,4 +1,4 @@
-# Proyecto Java Maven - [Nombre del Proyecto]
+# Proyecto Java Maven - Introducción a Ingeniería de Software Esteban Laguinge
 
 Este proyecto es una plantilla base para comenzar a trabajar con aplicaciones Java utilizando Maven. Asegúrate de seguir las instrucciones para configurar tu entorno correctamente y entender cómo contribuir al proyecto.
 
