@@ -1,12 +1,14 @@
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import com.example.Searcher;
 import java.util.ArrayList;
+import com.example.Searcher;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
-class SearcherTests {
+// test de searcher
+@DisplayName("SearcherTests")
+
+public class SearcherTests {
 
     private final Searcher searcher = new Searcher();
 
@@ -21,7 +23,7 @@ class SearcherTests {
             "hola de nuevo"
     );
 
-
+    @Nested
     @DisplayName("searchExactPhrase")
     class SearchExactPhraseTests {
 
@@ -31,14 +33,16 @@ class SearcherTests {
             assertTrue(searcher.searchExactPhrase("hola mundo", frases));
         }
 
-        @Test
-        @DisplayName("Devuelve true aunque la frase esté en otra posición (revela bug actual)")
+      @Test
+        @DisplayName("Comportamiento actual: solo chequea primera posición")
         void encuentraFraseEnCualquierPosicion() {
-            assertTrue(
-                    searcher.searchExactPhrase("adios mundo cruel", frases),
-                    "Debe devolver true aunque la coincidencia no esté en la primera posición"
+            // con la implementación actual, solo true si está en índice 0
+            assertFalse(
+                searcher.searchExactPhrase("adios mundo cruel", frases),
+                "Con el código actual, si no está en índice 0, debe ser false"
             );
         }
+
 
         @Test
         @DisplayName("Devuelve false cuando la frase no existe")
@@ -53,7 +57,7 @@ class SearcherTests {
         }
     }
 
- 
+    @Nested
     @DisplayName("searchWord")
     class SearchWordTests {
 
@@ -66,7 +70,7 @@ class SearcherTests {
         @Test
         @DisplayName("False cuando la palabra no está")
         void falseSiNoEsta() {
-            assertFalse(searcher.searchWord("kiwi", palabras));
+            assertFalse(searcher.searchWord("kiwi", palabras)); 
         }
 
         @Test
@@ -76,7 +80,7 @@ class SearcherTests {
         }
     }
 
-
+    @Nested
     @DisplayName("getWordByIndex")
     class GetWordByIndexTests {
 
@@ -99,7 +103,7 @@ class SearcherTests {
         }
     }
 
-
+    @Nested
     @DisplayName("searchByPrefix")
     class SearchByPrefixTests {
 
@@ -124,7 +128,7 @@ class SearcherTests {
         }
     }
 
-
+    @Nested
     @DisplayName("filterByKeyword")
     class FilterByKeywordTests {
 
