@@ -25,6 +25,23 @@ public class OrderTest {
     }
      
     @Test
+    void toStringIncluyeIdYArticulos() {
+        Article a1 = new Article("Galletas", 3, 1.20, 0.0);
+        Article a2 = new Article("Jugo", 2, 2.75, 5.0);
+        Order o = new Order("ORD-99", List.of(a1, a2));
+
+        String s = o.toString();
+
+        assertNotNull(s);
+        assertTrue(s.contains("Order{"));
+        assertTrue(s.contains("id='ORD-99'"));
+        assertTrue(s.contains("articulos="));
+        // chequear que aparecen nombres de artículos dentro de la lista
+        assertTrue(s.contains("Galletas"));
+        assertTrue(s.contains("Jugo"));
+    }
+    
+    @Test
     @DisplayName("Constructor vacío: lista inicial vacía")
     void ctorVacio() {
         Order o = new Order();

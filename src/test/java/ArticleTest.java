@@ -6,6 +6,20 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("ArticleTest")
 public class ArticleTest {
 
+
+       @Test
+    void toStringBasico() {
+        Article a = new Article("Mermelada", 11, 6.30, 9.5);
+        String s = a.toString();
+
+        assertNotNull(s);
+        assertTrue(s.contains("Article{"));
+        assertTrue(s.contains("nombre='Mermelada'"));
+        assertTrue(s.contains("cantidad=11"));
+        assertTrue(s.contains("precio=6.3"));     // 6.30 suele imprimirse como 6.3
+        assertTrue(s.contains("descuento=9.5"));
+    }
+    
     @Test
     @DisplayName("Constructor con params setea todos los campos")
     void ctorConParams() {
