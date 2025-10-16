@@ -1,11 +1,20 @@
 package com.example.model;
 
 import com.example.Calculator;
+import com.google.gson.annotations.SerializedName;
 
 public class Article {
+
+    @SerializedName(value = "nombre",   alternate = {"name", "nombreArticulo"})
     private String nombre;
+
+    @SerializedName(value = "cantidad", alternate = {"quantity", "qty"})
     private int cantidad;
+
+    @SerializedName(value = "precio",   alternate = {"price"})
     private double precio;
+
+    @SerializedName(value = "descuento", alternate = {"discount", "discountPercent"})
     private double descuento;
 
     public Article() {}

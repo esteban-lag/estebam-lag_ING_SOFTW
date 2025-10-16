@@ -1,11 +1,18 @@
 package com.example.model;
 import com.example.Calculator;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+    
+    @SerializedName(value = "id", alternate = {"orderId"})
     private String id;
+
+    // Soporta "articulos" (ES) y también "items"/"articles" (EN)
+    @SerializedName(value = "articulos", alternate = {"items", "articles"})
+    
     private List<Article> articulos;
 
     public Order() {
