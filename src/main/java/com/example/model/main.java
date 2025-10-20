@@ -10,15 +10,30 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class main {
 
     private static final Logger log = Logger.getLogger(main.class.getName());
+    
+    static{ 
+              System.setProperty("java.util.logging.SimpleFormatter.format", "%5$s%n");
+
+        Logger root = Logger.getLogger("");
+        root.setLevel(Level.FINE);
+
+        for (Handler h : root.getHandlers()) {
+            if (h instanceof ConsoleHandler) {
+                h.setLevel(Level.FINE);
+                h.setFormatter(new SimpleFormatter());
+     }
+    }
+}
 
     public static void main(String[] args) {
-        // Configuración mínima de logging para ver DEBUG (FINE) en consola
         ConsoleHandler handler = new ConsoleHandler();
         handler.setLevel(Level.FINE);
         log.setUseParentHandlers(false);
