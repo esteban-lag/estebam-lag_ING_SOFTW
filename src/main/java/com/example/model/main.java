@@ -15,9 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class main {
+public class Main {
 
-    private static final Logger log = Logger.getLogger(main.class.getName());
+    private static final Logger log = Logger.getLogger(Main.class.getName());
     
     static{ 
               System.setProperty("java.util.logging.SimpleFormatter.format", "%5$s%n");
@@ -49,7 +49,7 @@ public class main {
     }
 
     private static List<Order> loadOrders(String resource) {
-        InputStream is = main.class.getResourceAsStream("/" + resource);
+        InputStream is = Main.class.getResourceAsStream("/" + resource);
         if (is == null) {
             throw new IllegalStateException("Missing resource: " + resource +
                     " (colócalo en src/main/resources/)");

@@ -21,6 +21,14 @@
       <artifactId>gson</artifactId>
       <version>2.10.1</version>
     </dependency>
+  
+    <!--depenncia de logback-->
+
+    <dependency>
+    <groupId>ch.qos.logback</groupId>
+    <artifactId>logback-classic</artifactId>
+    <version>1.5.8</version>
+  </dependency>
 
     <!-- JUnit 5 (Jupiter) -->
     <dependency>
