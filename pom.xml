@@ -22,13 +22,19 @@
       <version>2.10.1</version>
     </dependency>
   
-    <!--depenncia de logback-->
-
+    <!-- SLF4J API (necesario para Logback) -->
     <dependency>
-    <groupId>ch.qos.logback</groupId>
-    <artifactId>logback-classic</artifactId>
-    <version>1.5.8</version>
-  </dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+
+    <!-- Logback Classic (incluye la implementación) -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.5.8</version>
+    </dependency>
 
     <!-- JUnit 5 (Jupiter) -->
     <dependency>

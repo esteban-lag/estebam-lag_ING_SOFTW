@@ -1,63 +1,58 @@
 package com.example.model;
 
-import com.example.model.Order;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 public class Main {
 
-    private static final Logger log = Logger.getLogger(Main.class.getName());
-    
-    static{ 
-              System.setProperty("java.util.logging.SimpleFormatter.format", "%5$s%n");
-
-        Logger root = Logger.getLogger("");
-        root.setLevel(Level.FINE);
-
-        for (Handler h : root.getHandlers()) {
-            if (h instanceof ConsoleHandler) {
-                h.setLevel(Level.FINE);
-                h.setFormatter(new SimpleFormatter());
-     }
-    }
-}
+    private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        ConsoleHandler handler = new ConsoleHandler();
-        handler.setLevel(Level.FINE);
-        log.setUseParentHandlers(false);
-        log.addHandler(handler);
-        log.setLevel(Level.FINE);
-
+        log.info("Iniciando aplicación...");
+        
         List<Order> orders = loadOrders("order.json");
 
-        log.info("Total orders loaded: " + orders.size());
+        // Log debug para cada orden cargada
+        for (Order order : orders) {
+            log.debug("Loaded order: {}", order.getId());
+            log.debug("  Gross Total: {}", order.getGrossTotal());
+            log.debug("  Discounted Total: {}", order.getDiscountedTotal());
+        }
+
+        log.info("Total orders loaded: {}", orders.size());
+        
+        // Mostrar resumen
         for (Order o : orders) {
-            log.fine("Loaded order: " + o.getId()); // equivalente a debug
+            log.info("Order {} - Total: ${}", o.getId(), 
+                String.format("%.2f", o.getDiscountedTotal()));
         }
     }
 
     private static List<Order> loadOrders(String resource) {
+        log.debug("Loading orders from resource: {}", resource);
+        
         InputStream is = Main.class.getResourceAsStream("/" + resource);
         if (is == null) {
+            log.error("Missing resource: {} (colócalo en src/main/resources/)", resource);
             throw new IllegalStateException("Missing resource: " + resource +
                     " (colócalo en src/main/resources/)");
         }
+        
         try (InputStreamReader r = new InputStreamReader(is, StandardCharsets.UTF_8)) {
             Type listType = new TypeToken<List<Order>>() {}.getType();
-            return new Gson().fromJson(r, listType);
+            List<Order> orders = new Gson().fromJson(r, listType);
+            log.debug("Successfully loaded {} orders", orders.size());
+            return orders;
         } catch (Exception e) {
+            log.error("Error reading resource: {}", resource, e);
             throw new RuntimeException("Error reading " + resource, e);
         }
     }
