@@ -1,0 +1,40 @@
+@startuml casos_de_uso
+
+actor "Usuario" as User
+actor "Sistema" as System
+
+rectangle "Gestion de Pedidos" {
+    
+    usecase "Buscar pedido" as UC1
+    usecase "Mostrar detalles" as UC2
+    usecase "Calcular totales" as UC3
+    usecase "Convertir a USD" as UC4
+    usecase "Cargar JSON" as UC5
+    usecase "Mostrar error" as UC6
+    
+}
+
+User --> UC1
+User --> UC2
+
+UC1 ..> UC2 : <<extend>>\n[encontrado]
+UC1 ..> UC6 : <<extend>>\n[no encontrado]
+
+UC2 ..> UC3 : <<include>>
+UC2 ..> UC4 : <<include>>
+
+System --> UC5
+
+UC5 ..> UC1 : <<precede>>
+
+note right of UC1
+  Usuario ingresa ID
+  y hace click en Search
+end note
+
+note right of UC5
+  Lee order.json
+  al iniciar la app
+end note
+
+@enduml

@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class Article {
 
-    @SerializedName(value = "nombre",   alternate = {"name", "nombreArticulo"})
+    @SerializedName(value = "nombre", alternate = {"name", "nombreArticulo"})
     private String nombre;
 
     @SerializedName(value = "cantidad", alternate = {"quantity", "qty"})
     private int cantidad;
 
-    @SerializedName(value = "precio",   alternate = {"price"})
+    @SerializedName(value = "precio", alternate = {"price", "unitPrice"})
     private double precio;
 
     @SerializedName(value = "descuento", alternate = {"discount", "discountPercent"})
@@ -26,7 +26,6 @@ public class Article {
         this.descuento = descuento;
     }
 
-    // getters/setters
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 

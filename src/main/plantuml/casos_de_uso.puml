@@ -1,0 +1,74 @@
+@startuml casos_de_uso
+
+left to right direction
+
+actor "Usuario" as User
+actor "Sistema de Archivos" as FileSystem
+
+rectangle "Sistema de Gestión de Pedidos" {
+    
+    usecase "Buscar pedido por ID" as UC1
+    usecase "Visualizar detalles del pedido" as UC2
+    usecase "Calcular total bruto" as UC3
+    usecase "Calcular total con descuento" as UC4
+    usecase "Convertir a USD" as UC5
+    usecase "Mostrar artículos del pedido" as UC6
+    usecase "Cargar pedidos desde JSON" as UC7
+    usecase "Validar ID de pedido" as UC8
+    usecase "Mostrar mensaje de error" as UC9
+    usecase "Calcular precio por artículo" as UC10
+    usecase "Aplicar descuento por artículo" as UC11
+    
+}
+
+' Relaciones con usuario
+User --> UC1 : introduce ID
+User --> UC2 : visualiza
+
+' Relaciones entre casos de uso
+UC1 ..> UC8 : <<include>>
+UC1 ..> UC2 : <<extend>>\n[pedido encontrado]
+UC1 ..> UC9 : <<extend>>\n[pedido no encontrado]
+
+UC2 ..> UC6 : <<include>>
+UC2 ..> UC3 : <<include>>
+UC2 ..> UC4 : <<include>>
+UC2 ..> UC5 : <<include>>
+
+UC6 ..> UC10 : <<include>>
+UC6 ..> UC11 : <<include>>
+
+UC3 ..> UC10 : <<include>>
+UC4 ..> UC11 : <<include>>
+
+
+FileSystem --> UC7 : provee datos
+
+UC7 ..> UC1 : <<precede>>
+
+
+note right of UC1
+  El usuario ingresa un ID
+  en el campo de busqueda
+  y presiona el boton Search
+end note
+
+note right of UC7
+  Se ejecuta al iniciar
+  la aplicacion. Lee el
+  archivo order.json desde
+  resources
+end note
+
+note bottom of UC5
+  Aplica tasa de cambio
+  USD_RATE = 1.14464
+end note
+
+note right of UC11
+  Calcula: precio * cantidad
+  y aplica el porcentaje
+  de descuento
+end note
+
+@enduml

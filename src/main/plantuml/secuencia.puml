@@ -1,0 +1,27 @@
+@startuml
+actor Usuario
+
+participant "Main" as M
+participant "OrderController" as C
+participant "OrderView" as V
+participant "Order" as O
+
+Usuario -> M : ejecutarAplicación()
+M -> C : readOrderFromJSON("order.json")
+C -> C : parsear JSON\ncrear Order
+C --> M : Order
+
+M -> C : calculateOrderTotal(Order)
+C -> Calculator : sum(precios)
+Calculator --> C : total
+C --> M : total
+
+M -> V : showOrder(Order)
+V -> O : getArticles()
+O --> V : lista artículos
+V -> O : calculateTotal()
+O --> V : total calculado
+
+V --> Usuario : imprime el pedido
+
+@enduml

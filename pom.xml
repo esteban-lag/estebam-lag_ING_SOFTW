@@ -46,6 +46,35 @@
   </dependencies>
 
   <build>
+
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>com.github.jeluard</groupId>
+            <artifactId>plantuml-maven-plugin</artifactId>
+            <version>1.3.2</version>
+
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                </execution>
+            </executions>
+
+            <configuration>
+                <!-- Carpeta donde guardas tus .puml -->
+                <sourceFiles>
+                    <directory>${project.basedir}/src/main/plantuml</directory>
+                </sourceFiles>
+
+                <!-- Carpeta donde se generan los PNG/SVG -->
+                <outputDirectory>${project.build.directory}/plantuml</outputDirectory>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
     <plugins>
       <!-- Asegura compilación con Java 17 -->
       <plugin>
