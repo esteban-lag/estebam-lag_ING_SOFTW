@@ -15,16 +15,26 @@ public class OrderView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
 
+        // icono de la app
+        java.net.URL iconUrl = getClass().getResource("/app.png");
+        if (iconUrl != null) {
+            Image iconImage = new ImageIcon(iconUrl).getImage();
+            setIconImage(iconImage);
+        } else {
+            System.err.println("No se encontró app.png en el classpath");
+        }
+
         // tirar todo a la ventana
         add(new JLabel("Order ID:"));
         add(searchField);
         add(searchButton);
-        
+
         // que no se pueda escribir aca
         resultArea.setEditable(false);
         add(new JScrollPane(resultArea));
 
         pack();
+        setLocationRelativeTo(null); // centrar ventana
         setVisible(true);
     }
 

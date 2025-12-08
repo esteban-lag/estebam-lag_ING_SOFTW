@@ -6,22 +6,24 @@ import org.slf4j.LoggerFactory;
 
 import com.example.model.Order;
 import com.example.View.OrderView;
+import com.example.model.ExchangeRateService;
 
 public class OrderController {
     private static final Logger log = LoggerFactory.getLogger(OrderController.class);
     private final OrderView view;
     private final List<Order> orders;
-    
-    // cuanto vale el dolar
-    private static final double USD_RATE = 1.14464;
+
+    // Servicio para obtener el tipo de cambio EUR/USD
+    private final ExchangeRateService exchangeRateService;
 
     public OrderController(OrderView view, List<Order> orders) {
         this.view = view;
         this.orders = orders;
+        this.exchangeRateService = new ExchangeRateService();
 
-        // cuando apretan el boton hace esto
+        // cuando aprietan el botón hace esto
         this.view.getSearchButton().addActionListener(e -> searchOrder());
-        
+
         log.info("Controller listo con {} ordenes", orders.size());
     }
 
@@ -42,7 +44,10 @@ public class OrderController {
             log.warn("No existe: {}", id);
         }
 
+        // obtener tipo de cambio actual EUR/USD llamando al servicio externo
+        double currentEurUsdRate = exchangeRateService.getCurrentEurUsdRate();
+
         // tirar todo a la vista
-        view.displayOrder(found, USD_RATE);
+        view.displayOrder(found, currentEurUsdRate);
     }
 }
