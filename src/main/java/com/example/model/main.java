@@ -33,13 +33,13 @@ public class Main {
 
         log.info("Total: {}", orders.size());
         
-        // mostrar resumencito
+        // mostrar resumen
         for (Order o : orders) {
             log.info("Orden {} - Total: ${}", o.getId(), 
                 String.format("%.2f", o.getDiscountedTotal()));
         }
 
-        // abrir la ventanita
+        // abrir la ventana
         SwingUtilities.invokeLater(() -> {
             log.info("Armando MVC...");
             OrderView view = new OrderView();
